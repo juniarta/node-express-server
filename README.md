@@ -1,7 +1,5 @@
 # **NODE + EXPRESS SERVER**
 
-> WORK IN PROGRESS
-
 ---
 
 ## **What this boilerplate contains**
@@ -32,18 +30,9 @@ Then:
 ## **Installation**
 
 To install the project and all dependencies, run:
-
-```bash
-# install dependencies
-npm install
-```
-
+`npm install`
 or
-
-```bash
-# install dependencies
-yarn
-```
+`yarn`
 
 in the directory of your project.
 
@@ -53,17 +42,17 @@ in the directory of your project.
 
 ##### run the server
 
-```bash
+`
 npm start
-# or
+`or`
 yarn start
-```
+`
 
 ---
 
 # **Editor setup**
 
-To keep consistency to the style of resources, I decided to stick to some shared rules that have to be applied to every project using some editor's plugins. Plese be sure to disable / remove any other js/jsx linters or custom configurations.
+To keep our style consistent to the style of our resources, I decided to stick to some shared rules that have to be applied to every project using some editor's plugins. Please be sure to disable and/or remove any other js/jsx linters or custom configurations.
 
 #### Basic Editor Configuration
 
@@ -71,7 +60,7 @@ I chose to use [EditorConfig](http://editorconfig.org/) to share the basic confi
 
 #### Auto correction on save
 
-I have chosen to use [js-beautify](https://github.com/beautify-web/js-beautify). Despite of it's name it works as a beautifier also for HTML and CSS. Every editor has a plugin that implement it, e.g. [Sublime](https://github.com/victorporof/Sublime-HTMLPrettify), [Atom](https://atom.io/packages/atom-beautify) or [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify). The setup for js-beautify is controlled within a `.jsbeautifyrc` file that has to be included in the root directory of the project (.hbs are not completely supported yet).
+I have chosen to use [js-beautify](https://github.com/beautify-web/js-beautify). Despite of it's name it works as a beautifier not only for Javascript, but also for HTML and CSS. The most used texteditors have a plugin available that integrate js-beautify, e.g. [Sublime](https://github.com/victorporof/Sublime-HTMLPrettify), [Atom](https://atom.io/packages/atom-beautify) or [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify). The setup for js-beautify is controlled within a `.jsbeautifyrc` file that has to be included in the root directory of the project (.hbs are not completely supported yet).
 
 #### Eslint
 
@@ -85,8 +74,8 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 - [x] Simple auth
 - [ ] Store auth session
 - [ ] Store server log
-- [ ] Refactory with best practices and performance
-- [ ] Create simple auth api
+- [ ] Refactor with best practices and performance
+- [ ] Create simple authentication api
 
 ---
 
