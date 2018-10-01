@@ -12,6 +12,7 @@ import { dbConnection, dbDisconnection } from './utils';
 import routes from './routes';
 
 const app = express();
+
 const serverPort = serverConfig.port;
 
 const SERVER = app.listen(serverPort, () => {
@@ -37,7 +38,10 @@ process.on('SIGINT', () => {
   });
 });
 
+// Configure CORS
 app.use(cors());
+app.options('*', cors()); // include before other routes
+
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
