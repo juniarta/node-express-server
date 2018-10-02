@@ -6,14 +6,13 @@ This project is an example of an Express server written in Javascript running on
 It was created for study / demonstration purpose only, but could be useful for others.
 There is no support, pull requests are welcome however.
 
-
 ## Goals
-
-The final goal of this project is to create a "look-alike" WordPress in Node.js.
-There's no need for a front-end within this project, just the API is important.
 
 The first goal for this project is to create a microservice server that exposes a simple API.
 For details regarding this, look at `auth route`.
+
+The final goal of this project is to create a "look-alike" WordPress in Node.js.
+There's no need for a front-end within this project, just the API is important.
 
 ---
 
@@ -45,23 +44,18 @@ Then:
 ## **Installation**
 
 To install the project and all dependencies, run:
-`npm install`
-or
-`yarn`
-
+`npm install` or `yarn`
 in the directory of your project.
 
 ---
 
 ## **Starting the project**
 
-##### run the server
+run the server
+`npm start`or`yarn start`
 
-`
-npm start
-`or`
-yarn start
-`
+run the tests
+`npm run test` or `yarn test`
 
 ---
 
@@ -85,30 +79,20 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 
 ## **Todo**
 
-- [x] Run basic server
-- [x] Simple auth
+- [ ] Refactor with best practices and performance
 - [ ] Store auth session
 - [ ] Store server log
-- [ ] Refactor with best practices and performance
 - [ ] Create simple authentication api
 
+---
 
-## Tasks
+## **Contributing**
 
-### Run basic server
-
-### Simple auth
-
-### Store auth session
-
-### Store server log
-
-### Refactor with best practices and performance
-
-### Create simple authentication api
-
-
-
+- Fork it!
+- Create your feature branch: `git checkout -b my-new-feature`
+- Commit your changes: `git commit -am 'Add some feature'`
+- Push to the branch: `git push origin my-new-feature`
+- Submit a pull request
 
 ---
 
