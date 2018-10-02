@@ -1,5 +1,9 @@
 # **NODE + EXPRESS SERVER**
 
+This project is an example of an Express server written in Javascript running on Node.js
+It was created for study / demonstration purpose only, but could be useful for others.
+There is no support, pull requests are welcome however.
+
 ---
 
 ## **What this boilerplate contains**
