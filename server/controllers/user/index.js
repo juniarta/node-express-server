@@ -1,62 +1,49 @@
+import { promisify } from 'util';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+const bcryptCompare = promisify(bcrypt.compare);
+const bcryptHash = promisify(bcrypt.hash);
+
 import User from '../../models/user';
 
-const signup = ({ email, password }) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(password, 10, function(err, hash) {
-      if (err) {
-        reject(err);
-      } else {
-        const user = new User({
-          _id: new mongoose.Types.ObjectId(),
-          email: email,
-          password: hash
-        });
+const signup = ({ email, password }) =>
+  bcryptHash(password, 10)
+    .then((hash) => {
+      const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        email: email,
+        password: hash
+      });
 
-        user
-          .save()
-          .then(() => {
-            resolve({ user });
-          })
-          .catch(err => {
-            reject(err);
-          });
-      }
+      return user
+        .save()
+        .then(() => ({ user }));
     });
-  });
-};
 
-const signin = ({ email, password }) => {
-  return new Promise((resolve, reject) => {
-    User.findOne({ email: email })
-      .exec()
-      .then(function(user) {
-        bcrypt.compare(password, user.password, function(err, result) {
-          if (err) {
-            reject(err);
-          }
+const signin = ({ email, password }) =>
+  User.findOne({ email })
+    .exec()
+    .then(user =>
+      bcryptCompare(password, user.password)
+        .then(result => {
           if (result) {
             const JWTToken = jwt.sign({
-                email: user.email,
-                _id: user._id
-              },
+              email: user.email,
+              _id: user._id
+            },
               'secret', {
                 expiresIn: '2h'
               }
             );
-            resolve({ user, token: JWTToken });
+
+            return { user, token: JWTToken };
           }
-          reject(new Error('test custom error'));
-        });
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
-};
+
+          throw new Error('test custom error');
+        })
+    );
 
 export const signupCtrl = signup;
 export const signinCtrl = signin;
