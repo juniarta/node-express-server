@@ -4,9 +4,9 @@ import jwt from 'jsonwebtoken';
 
 import User from '../../models/user';
 
-const signup = ({ email, password }) => {
+export const signupCtrl = ({ email, password }) => {
   return new Promise((resolve, reject) => {
-    bcrypt.hash(password, 10, function(err, hash) {
+    bcrypt.hash(password, 10, async function(err, hash) {
       if (err) {
         reject(err);
       } else {
@@ -16,20 +16,18 @@ const signup = ({ email, password }) => {
           password: hash
         });
 
-        user
-          .save()
-          .then(() => {
-            resolve({ user });
-          })
-          .catch(err => {
-            reject(err);
-          });
+        try {
+          await user.save();
+          resolve({ user });
+        } catch (err) {
+          reject(err)
+        }
       }
     });
   });
 };
 
-const signin = ({ email, password }) => {
+export const signinCtrl = ({ email, password }) => {
   return new Promise((resolve, reject) => {
     User.findOne({ email: email })
       .exec()
@@ -57,6 +55,3 @@ const signin = ({ email, password }) => {
       });
   });
 };
-
-export const signupCtrl = signup;
-export const signinCtrl = signin;
