@@ -52,14 +52,32 @@ in the directory of your project.
 ## **Starting the project**
 
 run the server
-`npm start`or`yarn start`
+
+```bash
+$ npm start
+```
+
+or
+
+```bash
+$ yarn start
+```
 
 run the tests
-`npm run test` or `yarn test`
+
+```bash
+$ npm run test
+```
+
+or
+
+```bash
+$ yarn test
+```
 
 ---
 
-# **Editor setup**
+## **Editor setup**
 
 To keep our style consistent to the style of our resources, I decided to stick to some shared rules that have to be applied to every project using some editor's plugins. Please be sure to disable and/or remove any other js/jsx linters or custom configurations.
 
