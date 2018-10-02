@@ -1,8 +1,8 @@
 import MongoDB from 'mongoose';
 
-import { dbConfig, logConfig } from '../../config';
+import { dbSettings, logMessages } from '../../config';
 
-const { user, pass, host } = dbConfig;
+const { user, pass, host } = dbSettings;
 const connUrl = `mongodb+srv://${user}:${pass}@${host}/test?retryWrites=true`;
 const connSettings = {
   useNewUrlParser: true
@@ -15,7 +15,7 @@ export default () => {
       connSettings
     )
       .then(() => {
-        resolve(logConfig.database.connection);
+        resolve(logMessages.database.connection);
       })
       .catch(err => {
         reject(err);
