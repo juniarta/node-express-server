@@ -1,8 +1,19 @@
 # **NODE + EXPRESS SERVER**
 
+## Description
+
 This project is an example of an Express server written in Javascript running on Node.js
 It was created for study / demonstration purpose only, but could be useful for others.
 There is no support, pull requests are welcome however.
+
+
+## Goals
+
+The final goal of this project is to create a "look-alike" WordPress in Node.js.
+There's no need for a front-end within this project, just the API is important.
+
+The first goal for this project is to create a microservice server that exposes a simple API.
+For details regarding this, look at `auth route`.
 
 ---
 
@@ -80,6 +91,24 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 - [ ] Store server log
 - [ ] Refactor with best practices and performance
 - [ ] Create simple authentication api
+
+
+## Tasks
+
+### Run basic server
+
+### Simple auth
+
+### Store auth session
+
+### Store server log
+
+### Refactor with best practices and performance
+
+### Create simple authentication api
+
+
+
 
 ---
 
