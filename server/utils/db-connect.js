@@ -8,17 +8,9 @@ const connSettings = {
   useNewUrlParser: true
 };
 
-export default () => {
-  return new Promise((resolve, reject) => {
-    MongoDB.connect(
-      connUrl,
-      connSettings
-    )
-      .then(() => {
-        resolve(logConfig.database.connection);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
-};
+export default () =>
+  MongoDB.connect(
+    connUrl,
+    connSettings
+  )
+      .then(() => logConfig.database.connection);
