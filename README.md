@@ -51,29 +51,35 @@ in the directory of your project.
 
 ## **Starting the project**
 
-run the server
+##### run the project to develop
+
+Run the project locally on port 9009 (as default)
 
 ```bash
-$ npm start
+npm start:dev
+# or
+yarn start:dev
 ```
 
-or
+##### run the project to production
 
 ```bash
-$ yarn start
+npm start
+#or
+yarn start
 ```
 
-run the tests
+##### run the tests
 
 ```bash
-$ npm run test
+npm test
+#or
+yarn test
 ```
 
-or
-
-```bash
-$ yarn test
-```
+You can change the default port value setting `PORT` in the node env
+<br>
+ie. `PORT=8080 npm start:dev` or `PORT=8080 yarn start:dev`
 
 ---
 
