@@ -1,10 +1,10 @@
 export default {
   server: {
-    connection: '🌍 => is running (on port: %s)',
-    disconnection: '🌍 => is stopped'
+    connection: '(SERVER 🌍) => is running on port:%s',
+    disconnection: '(SERVER 🌍) => is stopped'
   },
   database: {
-    connection: '💾 => is connected',
-    disconnection: '💾 => is disconnected'
+    connection: '(DATABASE 💾) => is connected',
+    disconnection: '(DATABASE 💾) => is disconnected'
   }
 };

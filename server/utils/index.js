@@ -1,5 +1,2 @@
-import dbConn from './db-connect';
-import dbDisconn from './db-disconnect';
-
-export const dbConnection = dbConn;
-export const dbDisconnection = dbDisconn;
+export { default as dbConnection } from './db-connect'
+export { default as dbDisconnection } from './db-disconnect'

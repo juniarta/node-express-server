@@ -5,7 +5,7 @@ const signup = (req, res, next) => {
     .then(data => {
       res.status(200).json({
         message: 'New user has been created',
-        user: data
+        data: data
       });
     })
     .catch(err => {

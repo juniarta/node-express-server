@@ -19,7 +19,7 @@ const signup = ({ email, password }) => {
         user
           .save()
           .then(() => {
-            resolve(user);
+            resolve({ user });
           })
           .catch(err => {
             reject(err);
@@ -39,13 +39,11 @@ const signin = ({ email, password }) => {
             reject(err);
           }
           if (result) {
-            const JWTToken = jwt.sign(
-              {
+            const JWTToken = jwt.sign({
                 email: user.email,
                 _id: user._id
               },
-              'secret',
-              {
+              'secret', {
                 expiresIn: '2h'
               }
             );

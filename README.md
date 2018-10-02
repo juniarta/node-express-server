@@ -1,6 +1,19 @@
 # **NODE + EXPRESS SERVER**
 
-> WORK IN PROGRESS
+## Description
+
+This project is an example of an Express server written in Javascript running on Node.js
+It was created for study / demonstration purpose only, but could be useful for others.
+There is no support, pull requests are welcome however.
+
+
+## Goals
+
+The final goal of this project is to create a "look-alike" WordPress in Node.js.
+There's no need for a front-end within this project, just the API is important.
+
+The first goal for this project is to create a microservice server that exposes a simple API.
+For details regarding this, look at `auth route`.
 
 ---
 
@@ -16,7 +29,7 @@
 
 ## **Set up project**
 
-Before cloning the repo **be sure** you have installed:
+Before cloning the repo **be sure** to install:
 
 - [Node](http://nodejs.org/download/) (version >= 9.10.x)
 - [Yarn](https://yarnpkg.com/en/docs/install) (version >= 1.9.x)
@@ -24,56 +37,49 @@ Before cloning the repo **be sure** you have installed:
 
 Then:
 
-- Choose a folder project in your system and switch in `cd [folder path]`
-- Clone the repo in your folder `git clone [repository url]`
+- Choose a folder for your project and move into it `cd [folder path]`
+- Clone the repo into your project's folder `git clone [repository url]`
 
 ---
 
 ## **Installation**
 
-To install the project and all dependencies, run (from the directory of the project):
-
-```bash
-# install dependencies
-npm install
-```
-
+To install the project and all dependencies, run:
+`npm install`
 or
+`yarn`
 
-```bash
-# install dependencies
-yarn
-```
+in the directory of your project.
 
 ---
 
-## **Run the project**
+## **Starting the project**
 
 ##### run the server
 
-```bash
+`
 npm start
-# or
+`or`
 yarn start
-```
+`
 
 ---
 
 # **Editor setup**
 
-To keep consistency to the style of resources, I decided to stick to some shared rules that have to be applied to every project using some editors plugins. Plese be sure to disable / remove any other js/jsx linters or custom configurations.
+To keep our style consistent to the style of our resources, I decided to stick to some shared rules that have to be applied to every project using some editor's plugins. Please be sure to disable and/or remove any other js/jsx linters or custom configurations.
 
 #### Basic Editor Configuration
 
-I chose to use [EditorConfig](http://editorconfig.org/) to share the basic configuration like indentation and charset. It works including an `.editorconfig` file in the root directory and making sure your editor has the necessary plugin. You can find a list of downloads [here](http://editorconfig.org/#download). The choice to keep the indentation with 2 spaces is to be compliant with actual standards (major frameworks use this configuration both for JS and CSS).
+I chose to use [EditorConfig](http://editorconfig.org/) to share the basic configuration like indentation and charset. It works by having a `.editorconfig` file in the root directory and making sure your editor has the necessary plugin. You can find a list of downloads [here](http://editorconfig.org/#download). The choice to keep the indentation with 2 spaces is to be compliant with actual standards (major frameworks use this configuration both for JS and CSS).
 
 #### Auto correction on save
 
-I have chose to use [js-beautify](https://github.com/beautify-web/js-beautify). Despite of his name it works as a beautifier also for HTML and CSS. Every editor has a plugin that implement it, es. [Sublime](https://github.com/victorporof/Sublime-HTMLPrettify), [Atom](https://atom.io/packages/atom-beautify) or [Visual studio](https://www.visualstudio.com/it/?rr=https%3A%2F%2Fwww.google.it%2F). The setup for js-beautify is controlled within a `.jsbeautifyrc` file that have to be included in the root directory of the project (.hbs are not completely supported yet).
+I have chosen to use [js-beautify](https://github.com/beautify-web/js-beautify). Despite of it's name it works as a beautifier not only for Javascript, but also for HTML and CSS. The most used texteditors have a plugin available that integrate js-beautify, e.g. [Sublime](https://github.com/victorporof/Sublime-HTMLPrettify), [Atom](https://atom.io/packages/atom-beautify) or [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify). The setup for js-beautify is controlled within a `.jsbeautifyrc` file that has to be included in the root directory of the project (.hbs are not completely supported yet).
 
 #### Eslint
 
-To check on Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint.org/). The rules to detect errors are written in a `.eslintrc` file included in the root directory of the project (best practice use `airbnb linter`).
+To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint.org/). The rules to detect errors are written in a `.eslintrc` file included in the root directory of the project (best practice is to use `airbnb linter`).
 
 ---
 
@@ -83,8 +89,26 @@ To check on Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint.
 - [x] Simple auth
 - [ ] Store auth session
 - [ ] Store server log
-- [ ] Refactory with best practices and performance
-- [ ] Create simple auth api
+- [ ] Refactor with best practices and performance
+- [ ] Create simple authentication api
+
+
+## Tasks
+
+### Run basic server
+
+### Simple auth
+
+### Store auth session
+
+### Store server log
+
+### Refactor with best practices and performance
+
+### Create simple authentication api
+
+
+
 
 ---
 

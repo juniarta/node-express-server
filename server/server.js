@@ -37,7 +37,10 @@ process.on('SIGINT', () => {
   });
 });
 
+// Configure CORS
 app.use(cors());
+app.options('*', cors()); // include before other routes
+
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
