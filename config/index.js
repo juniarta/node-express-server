@@ -1,7 +1,7 @@
-import dbSettings from './db-config';
-import serverSettings from './server-config';
-import logSettings from './log-config';
+import database from './db-settings';
+import server from './server-settings';
+import log from './log-messages';
 
-export const dbConfig = dbSettings;
-export const serverConfig = serverSettings;
-export const logConfig = logSettings;
+export const dbSettings = database;
+export const serverSettings = server;
+export const logMessages = log;

@@ -6,17 +6,17 @@ import helmet from 'helmet';
 import cors from 'cors';
 import chalk from 'chalk';
 
-import { serverConfig, logConfig } from '../config';
+import { serverSettings, logMessages } from '../config';
 import { dbConnection, dbDisconnection } from './utils';
 
 import routes from './routes';
 
 const app = express();
-const serverPort = serverConfig.port;
+const serverPort = serverSettings.port;
 
 const SERVER = app.listen(serverPort, () => {
   console.clear();
-  console.info(chalk.green(logConfig.server.connection), serverConfig.port);
+  console.info(chalk.green(logMessages.server.connection), serverSettings.port);
   dbConnection()
     .then(res => console.log(chalk.green(res)))
     .catch(err => console.error(chalk.red(err)));
@@ -31,7 +31,7 @@ process.on('SIGINT', () => {
       })
       .catch(err => console.error(chalk.red(err)))
       .finally(() => {
-        console.log(chalk.yellow(logConfig.server.disconnection));
+        console.log(chalk.yellow(logMessages.server.disconnection));
         process.exit(0);
       });
   });
