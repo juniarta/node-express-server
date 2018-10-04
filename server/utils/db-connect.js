@@ -1,8 +1,8 @@
 import MongoDB from 'mongoose';
 
-import { dbConfig, logConfig } from '../../config';
+import { dbSettings, logMessages } from '../../config';
 
-const { user, pass, host } = dbConfig;
+const { user, pass, host } = dbSettings;
 const connUrl = `mongodb+srv://${user}:${pass}@${host}/test?retryWrites=true`;
 const connSettings = {
   useNewUrlParser: true
@@ -12,5 +12,4 @@ export default () =>
   MongoDB.connect(
     connUrl,
     connSettings
-  )
-      .then(() => logConfig.database.connection);
+  ).then(() => logMessages.database.connection);

@@ -1,6 +1,18 @@
 # **NODE + EXPRESS SERVER**
 
-> WORK IN PROGRESS
+## Description
+
+This project is an example of an Express server written in Javascript running on Node.js
+It was created for study / demonstration purpose only, but could be useful for others.
+There is no support, pull requests are welcome however.
+
+## Goals
+
+The first goal for this project is to create a microservice server that exposes a simple API.
+For details regarding this, look at `auth route`.
+
+The final goal of this project is to create a "look-alike" WordPress in Node.js.
+There's no need for a front-end within this project, just the API is important.
 
 ---
 
@@ -32,38 +44,48 @@ Then:
 ## **Installation**
 
 To install the project and all dependencies, run:
-
-```bash
-# install dependencies
-npm install
-```
-
-or
-
-```bash
-# install dependencies
-yarn
-```
-
+`npm install` or `yarn`
 in the directory of your project.
 
 ---
 
 ## **Starting the project**
 
-##### run the server
+##### run the project to develop
+
+Run the project locally on port 9009 (as default)
+
+```bash
+npm start:dev
+# or
+yarn start:dev
+```
+
+##### run the project to production
 
 ```bash
 npm start
-# or
+#or
 yarn start
 ```
 
+##### run the tests
+
+```bash
+npm test
+#or
+yarn test
+```
+
+You can change the default port value setting `PORT` in the node env
+<br>
+ie. `PORT=8080 npm start:dev` or `PORT=8080 yarn start:dev`
+
 ---
 
-# **Editor setup**
+## **Editor setup**
 
-To keep consistency to the style of resources, I decided to stick to some shared rules that have to be applied to every project using some editor's plugins. Plese be sure to disable / remove any other js/jsx linters or custom configurations.
+To keep our style consistent to the style of our resources, I decided to stick to some shared rules that have to be applied to every project using some editor's plugins. Please be sure to disable and/or remove any other js/jsx linters or custom configurations.
 
 #### Basic Editor Configuration
 
@@ -71,7 +93,7 @@ I chose to use [EditorConfig](http://editorconfig.org/) to share the basic confi
 
 #### Auto correction on save
 
-I have chosen to use [js-beautify](https://github.com/beautify-web/js-beautify). Despite of it's name it works as a beautifier also for HTML and CSS. Every editor has a plugin that implement it, e.g. [Sublime](https://github.com/victorporof/Sublime-HTMLPrettify), [Atom](https://atom.io/packages/atom-beautify) or [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify). The setup for js-beautify is controlled within a `.jsbeautifyrc` file that has to be included in the root directory of the project (.hbs are not completely supported yet).
+I have chosen to use [js-beautify](https://github.com/beautify-web/js-beautify). Despite of it's name it works as a beautifier not only for Javascript, but also for HTML and CSS. The most used texteditors have a plugin available that integrate js-beautify, e.g. [Sublime](https://github.com/victorporof/Sublime-HTMLPrettify), [Atom](https://atom.io/packages/atom-beautify) or [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify). The setup for js-beautify is controlled within a `.jsbeautifyrc` file that has to be included in the root directory of the project (.hbs are not completely supported yet).
 
 #### Eslint
 
@@ -81,12 +103,20 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 
 ## **Todo**
 
-- [x] Run basic server
-- [x] Simple auth
+- [ ] Refactor with best practices and performance
 - [ ] Store auth session
 - [ ] Store server log
-- [ ] Refactory with best practices and performance
-- [ ] Create simple auth api
+- [ ] Create simple authentication api
+
+---
+
+## **Contributing**
+
+- Fork it!
+- Create your feature branch: `git checkout -b my-new-feature`
+- Commit your changes: `git commit -am 'Add some feature'`
+- Push to the branch: `git push origin my-new-feature`
+- Submit a pull request
 
 ---
 
