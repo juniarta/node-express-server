@@ -12,4 +12,6 @@ export default () =>
   MongoDB.connect(
     connUrl,
     connSettings
-  ).then(() => logMessages.database.connection);
+  )
+    .then(() => logMessages.database.connection)
+    .catch(err => err);
