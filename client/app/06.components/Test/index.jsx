@@ -10,7 +10,7 @@ class Test extends Component {
   }
 
   componentDidMount() {
-    fetch('/check')
+    fetch('http://localhost:9009/check')
       .then(res => res.json())
       .then(data => {
         this.setState({

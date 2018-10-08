@@ -112,9 +112,6 @@ const webpackConfig = {
       ignored: /node_modules/,
       aggregateTimeout: 500,
       poll: true
-    },
-    proxy: {
-      '/': 'http://localhost:9009'
     }
   },
   performance: {
