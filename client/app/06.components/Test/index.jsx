@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
+
 import axios from 'axios';
 
 class Test extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      message: ''
-    };
-  }
+  state = {
+    message: ''
+  };
 
   componentDidMount() {
     axios.get('http://localhost:9009/check').then(res => {
