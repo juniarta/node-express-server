@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Test extends Component {
   constructor(props) {
@@ -10,19 +11,20 @@ class Test extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:9009/check')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          message: data.message
-        });
+    axios.get('http://localhost:9009/check').then(res => {
+      this.setState({
+        message: res.data.message
       });
+    });
   }
 
   render() {
     return (
       <div>
-        <h1>This is the message: {this.state.message}</h1>
+        <h1>This is the message:</h1>
+        {this.state.message && (
+          <pre style={{ backgroundColor: 'yellow' }}>{this.state.message}</pre>
+        )}
       </div>
     );
   }

@@ -58,7 +58,6 @@ app.use(
 
 app.get('/check', function(req, res) {
   res.json({
-    TEST: 'Welcome to the Node express JWT Tutorial',
-    message: 'it works'
+    message: 'Welcome to the Node express JWT Tutorial'
   });
 });
