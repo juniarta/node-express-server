@@ -5,9 +5,11 @@
     "watch": ["./server", "./config"],
     "ignore_watch": ["./node_modules", "./client"],
     "env": {
+      "PORT": 9009,
       "NODE_ENV": "development"
     },
     "env_production": {
+      "PORT": 8080,
       "NODE_ENV": "production"
     }
   }]
