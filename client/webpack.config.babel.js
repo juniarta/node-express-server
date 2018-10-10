@@ -20,6 +20,7 @@ const webpackConfig = {
   },
   output: {
     path: distOutput,
+    publicPath: '/',
     filename: isProd ? '[name]-[chunkhash].js' : '[name].bundle.js',
     chunkFilename: isProd ? '[name]-[chunkhash].js' : '[name].bundle.js'
   },
@@ -98,6 +99,7 @@ const webpackConfig = {
     }
   },
   devServer: {
+    publicPath: '/',
     port: process.env.PORT || 9000,
     host: process.env.HOST || 'localhost',
     contentBase: resolve(__dirname, 'dist'),

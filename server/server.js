@@ -5,6 +5,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
 import chalk from 'chalk';
+import path from 'path';
 
 import { serverSettings, logMessages } from '../config';
 import { dbConnection, dbDisconnection } from './utils';
@@ -13,6 +14,13 @@ import routes from './routes';
 
 const app = express();
 const serverPort = serverSettings.port;
+
+const sessionSettings = session({
+  secret: 'test session',
+  resave: true,
+  saveUninitialized: false,
+  cookie: { secure: true }
+});
 
 const SERVER = app.listen(serverPort, () => {
   console.clear();
@@ -44,20 +52,17 @@ app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
+app.use(sessionSettings);
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use(routes);
-
-app.use(
-  session({
-    secret: 'test session',
-    resave: true,
-    saveUninitialized: false,
-    cookie: { secure: true }
-  })
-);
 
 app.get('/check', function(req, res) {
   res.json({
     message: 'Welcome to the Node express JWT Tutorial'
   });
+});
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
