@@ -103,6 +103,7 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 
 ## **Todo**
 
+- [ ] Add readme documentation for `pm2`
 - [ ] Refactor with best practices and performance
 - [ ] Store auth session
 - [ ] Store server log

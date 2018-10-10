@@ -4,9 +4,6 @@
     "script": "./index.js",
     "watch": ["./server", "./config"],
     "ignore_watch": ["./node_modules", "./client"],
-    "watch_options": {
-      "followSymlinks": false
-    },
     "env": {
       "NODE_ENV": "development"
     },
