@@ -21,24 +21,22 @@ export const signupCtrl = ({ email, password }) =>
 
 export const signinCtrl = ({ email, password }) =>
   User.findOne({ email })
-    .exec()
-    .then(user =>
-      bcryptCompare(password, user.password).then(result => {
-        if (result) {
-          const JWTToken = jwt.sign(
-            {
-              email: user.email,
-              _id: user._id
-            },
-            'secret',
-            {
-              expiresIn: '2h'
-            }
-          );
+  .exec()
+  .then(user =>
+    bcryptCompare(password, user.password).then(result => {
+      if (result) {
+        const JWTToken = jwt.sign({
+            email: user.email,
+            _id: user._id
+          },
+          'secret', {
+            expiresIn: '2h'
+          }
+        );
 
-          return { user, token: JWTToken };
-        }
+        return { user, token: JWTToken };
+      }
 
-        throw new Error('test custom error');
-      })
-    );
+      throw new Error('test custom error');
+    })
+  );
