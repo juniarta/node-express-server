@@ -24,8 +24,7 @@
     "not ie <= 10"
   ],
   "scripts": {
-    "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=128 index.js --display-error-details",
-    "start:dev": "NODE_ENV=develop nodemon index.js --display-error-details",
+    "start": "pm2 start pm2.config.json",
     "test": "echo 'work in progress'"
   },
   "dependencies": {
@@ -52,7 +51,6 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "17.0.0",
     "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "nodemon": "^1.18.4"
+    "eslint-plugin-jsx-a11y": "^6.0.3"
   }
 }

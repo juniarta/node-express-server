@@ -1,6 +1,6 @@
 export default {
   server: {
-    connection: '( SERVER 🌍 ) => is running on port:%s',
+    connection: '( SERVER 🌍 ) => is running at %s:%s',
     disconnection: '( SERVER 🌍 ) => is stopped'
   },
   database: {

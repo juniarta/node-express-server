@@ -12,11 +12,12 @@ import { dbConnection, dbDisconnection } from './utils';
 import routes from './routes';
 
 const app = express();
+const serverHost = serverSettings.host;
 const serverPort = serverSettings.port;
 
-const SERVER = app.listen(serverPort, () => {
+const SERVER = app.listen(serverPort, serverHost, () => {
   console.clear();
-  console.info(chalk.green(logMessages.server.connection), serverSettings.port);
+  console.log(chalk.green(logMessages.server.connection), serverHost, serverPort);
   dbConnection()
     .then(res => console.log(chalk.green(res)))
     .catch(err => console.error(chalk.red(err)));

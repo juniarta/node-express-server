@@ -20,9 +20,11 @@ There's no need for a front-end within this project, just the API is important.
 
 <img src="./__repo_readme_assets__/logo-node.png" height="55" alt="logo placeholder">&nbsp;&nbsp;
 <img src="./__repo_readme_assets__/logo-express.png" height="55" alt="logo placeholder">&nbsp;&nbsp;
+<img src="./__repo_readme_assets__/logo-pm2.png" height="55" alt="logo placeholder">&nbsp;&nbsp;
 
 - [x] Node 10.9.0
 - [x] Express 4.16.3
+- [x] Pm2 3.2.2
 
 ---
 
@@ -33,6 +35,7 @@ Before cloning the repo **be sure** to install:
 - [Node](http://nodejs.org/download/) (version >= 9.10.x)
 - [Yarn](https://yarnpkg.com/en/docs/install) (version >= 1.9.x)
 - [Npm](https://www.npmjs.com/) (version >= 6.3.x)
+- [Pm2](http://pm2.keymetrics.io/) (version >= 3.2.x)
 
 Then:
 
@@ -51,35 +54,23 @@ in the directory of your project.
 
 ## **Starting the project**
 
-##### run the project to develop
+##### run the project
 
-Run the project locally on port 9009 (as default)
-
-```bash
-npm start:dev
-# or
-yarn start:dev
-```
-
-##### run the project to production
+As the pm2.config.json, develop server will run on port 9009 and production server will run on port 8080
 
 ```bash
 npm start
-#or
+# or
 yarn start
 ```
 
-##### run the tests
+##### run the tests (work in progress)
 
 ```bash
 npm test
 #or
 yarn test
 ```
-
-You can change the default port value setting `PORT` in the node env
-<br>
-ie. `PORT=8080 npm start:dev` or `PORT=8080 yarn start:dev`
 
 ---
 
