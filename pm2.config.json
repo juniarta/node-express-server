@@ -4,6 +4,7 @@
     "script": "./index.js",
     "watch": ["./server", "./config"],
     "ignore_watch": ["./node_modules"],
+    "wait_ready": true,
     "env": {
       "PORT": 9009,
       "NODE_ENV": "development"
@@ -12,5 +13,19 @@
       "PORT": 8080,
       "NODE_ENV": "production"
     }
-  }]
+  }],
+  "deploy": {
+    "production": {
+      "user": "ibbatta",
+      "host": ["51.68.224.218"],
+      "ssh_options": "StrictHostKeyChecking=no",
+      "ref": "origin/master",
+      "repo": "git@github.com:ibbatta/node-express-server.git",
+      "path": "/var/www/mauriziobattaghini.ovh",
+      "pre-setup": "sudo apt-get install git; ls -la",
+      "post-setup": "ls -la",
+      "pre-deploy-local": "echo 'This is a local executed command'",
+      "post-deploy": "npm install"
+    }
+  }
 }

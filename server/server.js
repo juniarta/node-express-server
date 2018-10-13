@@ -1,10 +1,10 @@
+import http from 'http';
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-import chalk from 'chalk';
 
 import { serverSettings, logMessages } from '../config';
 import { dbConnection, dbDisconnection } from './utils';
@@ -12,31 +12,8 @@ import { dbConnection, dbDisconnection } from './utils';
 import routes from './routes';
 
 const app = express();
-const serverHost = serverSettings.host;
+const server = http.createServer(app)
 const serverPort = serverSettings.port;
-
-const SERVER = app.listen(serverPort, serverHost, () => {
-  console.clear();
-  console.log(chalk.green(logMessages.server.connection), serverHost, serverPort);
-  dbConnection()
-    .then(res => console.log(chalk.green(res)))
-    .catch(err => console.error(chalk.red(err)));
-});
-
-process.on('SIGINT', () => {
-  SERVER.close(() => {
-    dbDisconnection()
-      .then(res => {
-        console.clear();
-        console.log(chalk.yellow(res));
-      })
-      .catch(err => console.error(chalk.red(err)))
-      .finally(() => {
-        console.log(chalk.yellow(logMessages.server.disconnection));
-        process.exit(0);
-      });
-  });
-});
 
 app.use(cors());
 app.options('*', cors());
@@ -60,5 +37,34 @@ app.use(
 app.get('/check', function(req, res) {
   res.json({
     TEST: 'Welcome to the Node express JWT Tutorial'
+  });
+});
+
+dbConnection()
+  .then(res => {
+    console.log(res);
+    server.listen(serverPort, () => {
+      console.log(logMessages.server.connection, server.address().address, server.address().port);
+      process.send('ready');
+    });
+  })
+  .catch(err => console.error(err));
+
+process.on('SIGINT', () => {
+  server.close(function(err) {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+
+    dbDisconnection()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        console.log(logMessages.server.disconnection);
+        process.exit(0);
+      });
   });
 });
