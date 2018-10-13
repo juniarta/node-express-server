@@ -20,7 +20,6 @@ There's no need for a front-end within this project, just the API is important.
 
 <img src="./__repo_readme_assets__/logo-node.png" height="55" alt="logo placeholder">&nbsp;&nbsp;
 <img src="./__repo_readme_assets__/logo-express.png" height="55" alt="logo placeholder">&nbsp;&nbsp;
-<img src="./__repo_readme_assets__/logo-pm2.png" height="55" alt="logo placeholder">&nbsp;&nbsp;
 
 - [x] Node 10.9.0
 - [x] Express 4.16.3
