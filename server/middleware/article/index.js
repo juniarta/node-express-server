@@ -1,6 +1,12 @@
-import { createCtrl, getAllCtrl, patchCtrl } from '../../controllers/article';
+import {
+  createCtrl,
+  getAllCtrl,
+  getIdCtrl,
+  patchCtrl,
+  deleteCtrl
+} from '../../controllers/article';
 
-const create = (req, res, next) => {
+export const createMid = (req, res, next) => {
   createCtrl(req.body)
     .then(data => {
       res.status(200).json({
@@ -13,7 +19,7 @@ const create = (req, res, next) => {
     });
 };
 
-const getAll = (req, res, next) => {
+export const getAllMid = (req, res, next) => {
   getAllCtrl()
     .then(data => {
       res.status(200).json({ data });
@@ -23,7 +29,17 @@ const getAll = (req, res, next) => {
     });
 };
 
-const patch = (req, res, next) => {
+export const getIdMid = (req, res, next) => {
+  getIdCtrl(req.params.id)
+    .then(data => {
+      res.status(200).json({ data });
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+export const patchMid = (req, res, next) => {
   patchCtrl(req.params.id, req.body)
     .then(data => {
       res.status(200).json({ data });
@@ -33,6 +49,12 @@ const patch = (req, res, next) => {
     });
 };
 
-export const createMid = create;
-export const getAllMid = getAll;
-export const patchMid = patch;
+export const deleteMid = (req, res, next) => {
+  deleteCtrl(req.params.id)
+    .then(data => {
+      res.status(200).json({ data });
+    })
+    .catch(err => {
+      next(err);
+    });
+};

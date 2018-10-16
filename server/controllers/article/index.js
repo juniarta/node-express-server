@@ -42,7 +42,13 @@ export const createCtrl = ({ title, text, author }) => {
 export const getAllCtrl = () => {
   return Article.find()
     .sort({ createdAt: 'descending' })
-    .then(articles => ({ articles }))
+    .then(articles => articles)
+    .catch(err => err);
+};
+
+export const getIdCtrl = id => {
+  return Article.findById(id)
+    .then(article => article)
     .catch(err => err);
 };
 
@@ -69,5 +75,13 @@ export const patchCtrl = (id, { title, text }) => {
       return article.save();
     })
     .then(finalArticle => finalArticle)
+    .catch(err => err);
+};
+
+export const deleteCtrl = id => {
+  return Article.findByIdAndRemove(id)
+    .then(() => {
+      return { message: 'Articolo eliminato' };
+    })
     .catch(err => err);
 };
