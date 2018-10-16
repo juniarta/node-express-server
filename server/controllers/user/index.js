@@ -16,7 +16,10 @@ export const signupCtrl = ({ email, password }) =>
       password: hash
     });
 
-    return user.save().then(() => ({ user }));
+    return user
+      .save()
+      .then(() => ({ user }))
+      .catch(err => err);
   });
 
 export const signinCtrl = ({ email, password }) =>
@@ -41,4 +44,5 @@ export const signinCtrl = ({ email, password }) =>
 
         throw new Error('test custom error');
       })
-    );
+    )
+    .catch(err => err);

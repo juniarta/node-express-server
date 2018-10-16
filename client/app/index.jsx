@@ -2,34 +2,10 @@ import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import HelloWorld from 'Components/HelloWorld';
-import Test from 'Components/Test';
-
-const Index = () => {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/test">Test</Link>
-          </li>
-        </ul>
-
-        <hr />
-        <Switch>
-          <Route path="/" exact component={HelloWorld} />
-          <Route path="/test" component={Test} />
-          <Route component={NoMatch} />
-        </Switch>
-      </div>
-    </Router>
-  );
-};
+import Dashboard from 'Components/Dashboard';
+import Login from 'Components/Login';
 
 const NoMatch = ({ location }) => {
   return (
@@ -38,6 +14,20 @@ const NoMatch = ({ location }) => {
         No match for: <code>{location.pathname}</code>
       </p>
     </div>
+  );
+};
+
+const Index = () => {
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/login" component={Login} />
+          <Route component={NoMatch} />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 

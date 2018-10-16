@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import errorHandler from 'errorhandler';
 import helmet from 'helmet';
 import cors from 'cors';
 import chalk from 'chalk';
@@ -11,6 +12,8 @@ import { serverSettings, logMessages } from '../config';
 import { dbConnection, dbDisconnection } from './utils';
 
 import routes from './routes';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 const serverPort = serverSettings.port;
@@ -45,9 +48,9 @@ process.on('SIGINT', () => {
   });
 });
 
+!isProduction && app.use(errorHandler());
 app.use(cors());
 app.options('*', cors());
-
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -56,12 +59,6 @@ app.use(sessionSettings);
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use(routes);
-
-app.get('/check', function(req, res) {
-  res.json({
-    message: 'Welcome to the Node express JWT Tutorial'
-  });
-});
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
