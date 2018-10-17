@@ -1,7 +1,7 @@
-import { signupCtrl, signinCtrl } from '../../controllers/user';
+import { registerCtrl, loginCtrl, logoutCtrl } from '../../controllers/user';
 
-const signup = (req, res, next) => {
-  signupCtrl(req.body)
+export const registerMid = (req, res, next) => {
+  registerCtrl(req.body)
     .then(data => {
       res.status(200).json({
         message: 'New user has been created',
@@ -13,8 +13,8 @@ const signup = (req, res, next) => {
     });
 };
 
-const signin = (req, res, next) => {
-  signinCtrl(req.body)
+export const loginMid = (req, res, next) => {
+  loginCtrl(req.body)
     .then(data => {
       res.status(200).json({
         message: 'Welcome to the JWT Auth',
@@ -26,5 +26,14 @@ const signin = (req, res, next) => {
     });
 };
 
-export const signupMid = signup;
-export const signinMid = signin;
+export const logoutMid = (req, res, next) => {
+  logoutCtrl(req.session)
+    .then(() => {
+      res.status(200).json({
+        message: 'Logout done'
+      });
+    })
+    .catch(err => {
+      next(err);
+    });
+};

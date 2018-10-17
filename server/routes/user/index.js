@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { signupMid, signinMid } from '../../middleware/user';
+import { registerMid, loginMid, logoutMid } from '../../middleware/user';
 
 const router = Router();
 
-router.post('/signup', signupMid);
-router.post('/signin', signinMid);
+router.post('/register', registerMid);
+router.post('/login', loginMid);
+router.get('/logout', logoutMid);
 
 export default router;

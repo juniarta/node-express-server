@@ -8,7 +8,7 @@ const bcryptHash = promisify(bcrypt.hash);
 
 import User from '../../models/user';
 
-export const signupCtrl = ({ email, password }) =>
+export const registerCtrl = ({ email, password }) =>
   bcryptHash(password, 10).then(hash => {
     const user = new User({
       _id: new mongoose.Types.ObjectId(),
@@ -22,27 +22,42 @@ export const signupCtrl = ({ email, password }) =>
       .catch(err => err);
   });
 
-export const signinCtrl = ({ email, password }) =>
-  User.findOne({ email })
-    .exec()
-    .then(user =>
-      bcryptCompare(password, user.password).then(result => {
-        if (result) {
-          const JWTToken = jwt.sign(
-            {
-              email: user.email,
-              _id: user._id
-            },
-            'secret',
-            {
-              expiresIn: '2h'
-            }
-          );
+export const loginCtrl = ({ email, password }) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ email }, (err, user) => {
+      if (err || !user) {
+        reject(err || 'Incorrect login');
+        return;
+      }
+      bcryptCompare(password, user.password)
+        .then(result => {
+          if (result) {
+            const JWTToken = jwt.sign(
+              {
+                _id: user._id,
+                email: user.email
+              },
+              'secret',
+              {
+                expiresIn: '1h'
+              }
+            );
+            resolve({ user, token: JWTToken });
+          }
+          reject('Incorrect login');
+        })
+        .catch(err => reject(err));
+    });
+  });
+};
 
-          return { user, token: JWTToken };
-        }
-
-        throw new Error('test custom error');
-      })
-    )
-    .catch(err => err);
+export const logoutCtrl = session =>
+  new Promise((resolve, reject) => {
+    session.destroy(err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });

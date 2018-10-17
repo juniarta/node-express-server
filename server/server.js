@@ -22,7 +22,7 @@ const sessionSettings = session({
   secret: 'test session',
   resave: true,
   saveUninitialized: false,
-  cookie: { secure: true }
+  cookie: { secure: true, maxAge: 3600000 }
 });
 
 const SERVER = app.listen(serverPort, () => {
@@ -58,7 +58,7 @@ app.use(helmet());
 app.use(sessionSettings);
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use(routes);
+app.use('/api/v1/', routes);
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
