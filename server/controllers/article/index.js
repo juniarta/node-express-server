@@ -2,42 +2,43 @@ import mongoose from 'mongoose';
 
 import Article from '../../models/article';
 
-export const createCtrl = ({ title, text, author }) => {
-  if (!title) {
-    throw new Error({
-      code: 422,
-      message: 'TITLE is required'
-    });
-  }
+export const createCtrl = ({ title, text, author }) =>
+  new Promise((resolve, reject) => {
+    if (!title) {
+      reject({
+        code: 422,
+        message: 'TITLE is required'
+      });
+    }
 
-  if (!text) {
-    throw new Error({
-      code: 422,
-      message: 'TEXT is required'
-    });
-  }
+    if (!text) {
+      reject({
+        code: 422,
+        message: 'TEXT is required'
+      });
+    }
 
-  if (!author) {
-    throw new Error({
-      code: 422,
-      message: 'AUTHOR is required'
-    });
-  }
+    if (!author) {
+      reject({
+        code: 422,
+        message: 'AUTHOR is required'
+      });
+    }
 
-  const finalArticle = new Article({
-    _id: new mongoose.Types.ObjectId(),
-    title: title,
-    text: text,
-    author: author,
-    createdAt: new Date(),
-    updatedAt: new Date()
+    const finalArticle = new Article({
+      _id: new mongoose.Types.ObjectId(),
+      title: title,
+      text: text,
+      author: author,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+
+    finalArticle
+      .save()
+      .then(article => resolve(article))
+      .catch(err => reject(err));
   });
-
-  return finalArticle
-    .save()
-    .then(() => ({ finalArticle }))
-    .catch(err => err);
-};
 
 export const getAllCtrl = () => {
   return Article.find()
@@ -46,42 +47,52 @@ export const getAllCtrl = () => {
     .catch(err => err);
 };
 
-export const getIdCtrl = id => {
-  return Article.findById(id)
-    .then(article => article)
-    .catch(err => err);
-};
-
-export const patchCtrl = (id, { title, text }) => {
-  if (!title) {
-    throw new Error({
-      code: 422,
-      message: 'TITLE is required'
+export const getIdCtrl = id =>
+  new Promise((resolve, reject) => {
+    Article.findById(id, (err, article) => {
+      (err || !article) && reject({ code: 404, message: 'Article not found' });
+      resolve(article);
     });
-  }
+  });
 
-  if (!text) {
-    throw new Error({
-      code: 422,
-      message: 'TEXT is required'
+export const patchCtrl = (id, { title, text, author }) =>
+  new Promise((resolve, reject) => {
+    if (!title) {
+      reject({
+        code: 422,
+        message: 'TITLE is required'
+      });
+    }
+
+    if (!text) {
+      reject({
+        code: 422,
+        message: 'TEXT is required'
+      });
+    }
+
+    if (!author) {
+      reject({
+        code: 422,
+        message: 'AUTHOR is required'
+      });
+    }
+
+    Article.findById(id, (err, data) => {
+      (err || !data) && reject({ code: 404, message: 'Article not found' });
+      if (data) {
+        data.title = title;
+        data.text = text;
+        data.updatedAt = new Date();
+        return data.save();
+      }
+    }).then(article => resolve(article));
+  });
+
+export const deleteCtrl = id =>
+  new Promise((resolve, reject) => {
+    Article.findByIdAndDelete(id, (err, article) => {
+      (err || !article) && reject({ code: 404, message: 'Article not found' });
+      resolve({ message: 'Article deleted successfully', article });
     });
-  }
-
-  return Article.findById(id)
-    .then(article => {
-      article.title = title;
-      article.text = text;
-      article.updatedAt = new Date();
-      return article.save();
-    })
-    .then(finalArticle => finalArticle)
-    .catch(err => err);
-};
-
-export const deleteCtrl = id => {
-  return Article.findByIdAndRemove(id)
-    .then(() => {
-      return { message: 'Articolo eliminato' };
-    })
-    .catch(err => err);
-};
+  });
