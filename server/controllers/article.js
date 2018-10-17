@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import Article from '../../models/article';
+import Article from '../models/article';
 
 export const createCtrl = ({ title, text, author }) =>
   new Promise((resolve, reject) => {

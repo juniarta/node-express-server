@@ -4,7 +4,7 @@ import {
   getIdCtrl,
   patchCtrl,
   deleteCtrl
-} from '../../controllers/article';
+} from '../controllers/article';
 
 export const createMid = (req, res, next) => {
   createCtrl(req.body)

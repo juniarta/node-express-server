@@ -5,7 +5,7 @@ import {
   getIdMid,
   patchMid,
   deleteMid
-} from '../../middleware/article';
+} from '../middlewares/article';
 
 const router = Router();
 

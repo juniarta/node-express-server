@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 const bcryptCompare = promisify(bcrypt.compare);
 const bcryptHash = promisify(bcrypt.hash);
 
-import User from '../../models/user';
+import User from '../models/user';
 
 export const registerCtrl = ({ email, password }) => {};
 

@@ -1,4 +1,4 @@
-import { registerCtrl, loginCtrl, logoutCtrl } from '../../controllers/user';
+import { registerCtrl, loginCtrl, logoutCtrl } from '../controllers/user';
 
 export const registerMid = (req, res, next) => {
   registerCtrl(req.body)
