@@ -4,11 +4,11 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-import chalk from 'chalk';
 import path from 'path';
+import morgan from 'morgan';
 
-import { serverSettings, logMessages } from '../config';
-import { dbConnection, dbDisconnection, errorHandler } from './utils';
+import { serverSettings, logMessages, winstonSettings } from '../config';
+import { dbConnection, dbDisconnection } from './utils';
 
 import routes from './routes';
 
@@ -24,10 +24,10 @@ const sessionSettings = session({
 
 const SERVER = app.listen(serverPort, () => {
   console.clear();
-  console.info(chalk.green(logMessages.server.connection), serverSettings.port);
+  console.info(logMessages.server.connection, serverSettings.port);
   dbConnection()
-    .then(res => console.log(chalk.green(res)))
-    .catch(err => console.error(chalk.red(err)));
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
 });
 
 process.on('SIGINT', () => {
@@ -35,16 +35,22 @@ process.on('SIGINT', () => {
     dbDisconnection()
       .then(res => {
         console.clear();
-        console.log(chalk.yellow(res));
+        console.log(res);
       })
-      .catch(err => console.error(chalk.red(err)))
+      .catch(err => console.error(err))
       .finally(() => {
-        console.log(chalk.yellow(logMessages.server.disconnection));
+        console.log(logMessages.server.disconnection);
         process.exit(0);
       });
   });
 });
 
+process.on('uncaughtException', er => {
+  console.error(er.stack);
+  process.exit(1);
+});
+
+app.use(morgan('combined', { stream: winstonSettings.stream }));
 app.use(cors());
 app.options('*', cors());
 app.use(compression());
@@ -55,7 +61,6 @@ app.use(sessionSettings);
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use('/api/v1/', routes);
-app.use(errorHandler);
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));

@@ -1,7 +1,4 @@
-import database from './db-settings';
-import server from './server-settings';
-import log from './log-messages';
-
-export const dbSettings = database;
-export const serverSettings = server;
-export const logMessages = log;
+export { default as dbSettings } from './db-settings';
+export { default as serverSettings } from './server-settings';
+export { default as logMessages } from './log-messages';
+export { default as winstonSettings } from './winston-settings';

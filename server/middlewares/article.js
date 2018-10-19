@@ -14,9 +14,7 @@ export const createMid = (req, res, next) => {
         data: data
       });
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
 
 export const getAllMid = (req, res, next) => {
@@ -24,9 +22,7 @@ export const getAllMid = (req, res, next) => {
     .then(data => {
       res.status(200).json({ data });
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
 
 export const getIdMid = (req, res, next) => {
@@ -34,9 +30,7 @@ export const getIdMid = (req, res, next) => {
     .then(data => {
       res.status(200).json({ data });
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
 
 export const patchMid = (req, res, next) => {
@@ -44,9 +38,7 @@ export const patchMid = (req, res, next) => {
     .then(data => {
       res.status(200).json({ data });
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
 
 export const deleteMid = (req, res, next) => {
@@ -54,7 +46,5 @@ export const deleteMid = (req, res, next) => {
     .then(data => {
       res.status(200).json({ data });
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 };
