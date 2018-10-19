@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import userAuth from '../middlewares/auth';
 
 import {
   createMid,
@@ -12,7 +11,7 @@ import {
 const router = Router();
 
 router.post('/', createMid);
-router.get('/', userAuth, getAllMid);
+router.get('/', getAllMid);
 router.get('/:id', getIdMid);
 router.put('/:id', patchMid);
 router.delete('/:id', deleteMid);

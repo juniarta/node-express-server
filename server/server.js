@@ -17,7 +17,7 @@ const serverPort = serverSettings.port;
 const isProd = process.env.NODE_ENV === 'production';
 
 const sessionSettings = session({
-  secret: 'test session',
+  secret: serverSettings.session.secret,
   resave: true,
   saveUninitialized: false,
   cookie: { secure: true, maxAge: 3600000 }
@@ -49,13 +49,13 @@ process.on('uncaughtException', er => {
   process.exit(1);
 });
 
+app.use(sessionSettings);
 app.use(cors());
 app.options('*', cors());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
-app.use(sessionSettings);
 app.use(morgan('combined', { stream: winstonSettings.stream }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
