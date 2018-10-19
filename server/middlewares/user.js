@@ -1,4 +1,9 @@
-import { registerCtrl, loginCtrl, logoutCtrl } from '../controllers/user';
+import {
+  registerCtrl,
+  loginCtrl,
+  logoutCtrl,
+  currentCtrl
+} from '../controllers/user';
 
 export const registerMid = (req, res, next) => {
   registerCtrl(req.body)
@@ -36,4 +41,10 @@ export const logoutMid = (req, res, next) => {
     .catch(err => {
       next(err);
     });
+};
+
+export const currentMid = (req, res, next) => {
+  currentCtrl(req.session)
+    .then(data => console.log(data))
+    .catch(next);
 };

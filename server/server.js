@@ -9,6 +9,7 @@ import morgan from 'morgan';
 
 import { serverSettings, logMessages, winstonSettings } from '../config';
 import { dbConnection, dbDisconnection } from './utils';
+import { authVerifyMid } from './middlewares/auth';
 
 import routes from './routes';
 
@@ -61,7 +62,13 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use('/api/v1/', routes);
 
-app.get('*', function(req, res) {
+app.get('/', authVerifyMid, (req, res) => {
+  res.json({
+    auth: false
+  });
+});
+
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 

@@ -100,9 +100,9 @@ const webpackConfig = {
   },
   devServer: {
     publicPath: '/',
+    contentBase: resolve(__dirname, 'dist'),
     port: process.env.PORT || 9000,
     host: process.env.HOST || 'localhost',
-    contentBase: resolve(__dirname, 'dist'),
     historyApiFallback: true,
     compress: true,
     hot: true,

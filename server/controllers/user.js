@@ -76,3 +76,10 @@ export const logoutCtrl = session =>
       }
     });
   });
+
+export const currentCtrl = session =>
+  new Promise((resolve, reject) => {
+    if (!session.id) {
+      reject();
+    }
+  });
