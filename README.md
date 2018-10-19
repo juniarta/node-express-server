@@ -93,11 +93,11 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 
 ## **Todo**
 
-- [ ] Handle decentralized custom errors
-- [ ] Manage signup, login and logout routes
+- [x] Handle decentralized custom errors
+- [x] Manage signup, login and logout routes
+- [ ] Manage 2 differents token for sessions: jwt for api calls and server sessions for user
 - [ ] Refactor with best practices and performance
-- [ ] Store auth session
-- [ ] Store server log
+- [x] Store server log
 - [ ] Migrate to typescript
 
 ---
