@@ -8,12 +8,14 @@ const logger = winston.createLogger({
       level: 'error',
       filename: './logs/error.log',
       maxSize: 5242880,
-      maxFiles: 3
+      maxFiles: 3,
+      json: true
     }),
     new winston.transports.File({
       filename: './logs/combined.log',
       maxSize: 5242880,
-      maxFiles: 3
+      maxFiles: 3,
+      json: true
     }),
     new winston.transports.Console({
       level: 'debug',

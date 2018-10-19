@@ -14,6 +14,7 @@ import routes from './routes';
 
 const app = express();
 const serverPort = serverSettings.port;
+const isProd = process.env.NODE_ENV === 'production';
 
 const sessionSettings = session({
   secret: 'test session',
@@ -23,7 +24,6 @@ const sessionSettings = session({
 });
 
 const SERVER = app.listen(serverPort, () => {
-  console.clear();
   console.info(logMessages.server.connection, serverSettings.port);
   dbConnection()
     .then(res => console.log(res))
@@ -34,7 +34,6 @@ process.on('SIGINT', () => {
   SERVER.close(() => {
     dbDisconnection()
       .then(res => {
-        console.clear();
         console.log(res);
       })
       .catch(err => console.error(err))
@@ -50,7 +49,6 @@ process.on('uncaughtException', er => {
   process.exit(1);
 });
 
-app.use(morgan('combined', { stream: winstonSettings.stream }));
 app.use(cors());
 app.options('*', cors());
 app.use(compression());
@@ -58,10 +56,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(sessionSettings);
+app.use(morgan('combined', { stream: winstonSettings.stream }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use('/api/v1/', routes);
 
-app.get('/*', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
+app.use((err, req, res, next) => {
+  winstonSettings.error(
+    `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${
+      req.method
+    } - ${req.ip}`
+  );
+
+  res.status(err.status || 500).json({
+    errors: {
+      message: err.message,
+      error: isProd ? {} : err
+    }
+  });
+
+  next(err);
 });

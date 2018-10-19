@@ -196,8 +196,6 @@ if (isProd) {
     new WorkboxPlugin.GenerateSW({
       cacheId: 'boilerplate-app',
       swDest: 'service-worker.js',
-      globPatterns: ['**/*.{html,js,css,jpg,jpeg,svg,png,ico,woff,woff2,ttf}'],
-      dontCacheBustUrlsMatching: /\.\w{8}\./,
       clientsClaim: true,
       skipWaiting: true,
       runtimeCaching: [

@@ -4,26 +4,23 @@ import Article from '../models/article';
 
 export const createCtrl = ({ title, text, author }) =>
   new Promise((resolve, reject) => {
-    if (!title) {
+    !title &&
       reject({
-        code: 422,
+        status: 422,
         message: 'TITLE is required'
       });
-    }
 
-    if (!text) {
+    !text &&
       reject({
-        code: 422,
+        status: 422,
         message: 'TEXT is required'
       });
-    }
 
-    if (!author) {
+    !author &&
       reject({
-        code: 422,
+        status: 422,
         message: 'AUTHOR is required'
       });
-    }
 
     const finalArticle = new Article({
       _id: new mongoose.Types.ObjectId(),
@@ -50,36 +47,34 @@ export const getAllCtrl = () => {
 export const getIdCtrl = id =>
   new Promise((resolve, reject) => {
     Article.findById(id, (err, article) => {
-      (err || !article) && reject({ code: 404, message: 'Article not found' });
+      (err || !article) &&
+        reject({ status: 404, message: 'Article not found' });
       resolve(article);
     });
   });
 
 export const patchCtrl = (id, { title, text, author }) =>
   new Promise((resolve, reject) => {
-    if (!title) {
+    !title &&
       reject({
-        code: 422,
+        status: 422,
         message: 'TITLE is required'
       });
-    }
 
-    if (!text) {
+    !text &&
       reject({
-        code: 422,
+        status: 422,
         message: 'TEXT is required'
       });
-    }
 
-    if (!author) {
+    !author &&
       reject({
-        code: 422,
+        status: 422,
         message: 'AUTHOR is required'
       });
-    }
 
     Article.findById(id, (err, data) => {
-      (err || !data) && reject({ code: 404, message: 'Article not found' });
+      (err || !data) && reject({ status: 404, message: 'Article not found' });
       if (data) {
         data.title = title;
         data.text = text;
@@ -92,7 +87,8 @@ export const patchCtrl = (id, { title, text, author }) =>
 export const deleteCtrl = id =>
   new Promise((resolve, reject) => {
     Article.findByIdAndDelete(id, (err, article) => {
-      (err || !article) && reject({ code: 404, message: 'Article not found' });
+      (err || !article) &&
+        reject({ status: 404, message: 'Article not found' });
       resolve({ message: 'Article deleted successfully', article });
     });
   });
