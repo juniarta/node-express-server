@@ -21,7 +21,15 @@ const sessionSettings = session({
   secret: serverSettings.session.secret,
   resave: true,
   saveUninitialized: false,
-  cookie: { secure: true, maxAge: 3600000 }
+  cookie: {
+    name: serverSettings.cookie.name,
+    duration: 30 * 60 * 1000, // 30 minutes
+    activeDuration: 5 * 60 * 1000, // 5 minutes
+    maxAge: 3600000,
+    secure: true,
+    httpOnly: true,
+    ephemeral: true
+  }
 });
 
 const SERVER = app.listen(serverPort, () => {
@@ -58,6 +66,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan('combined', { stream: winstonSettings.stream }));
+
+// TODO: optimize and refactor
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use('/api/v1/', routes);

@@ -37,6 +37,20 @@ export const registerCtrl = ({ email, password }) =>
 
 export const loginCtrl = ({ email, password }) =>
   new Promise((resolve, reject) => {
+    let err;
+
+    if (!email) {
+      err = new Error('Email is required');
+      err.status = 422;
+      reject(err);
+    }
+
+    if (!password) {
+      err = new Error('Password is required');
+      err.status = 422;
+      reject(err);
+    }
+
     User.findOne({ email }).exec((err, user) => {
       err && reject(err);
       if (!user) {
@@ -69,17 +83,18 @@ export const loginCtrl = ({ email, password }) =>
 export const logoutCtrl = session =>
   new Promise((resolve, reject) => {
     session.destroy(err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
+      err && reject(err);
+      resolve();
     });
   });
 
 export const currentCtrl = session =>
   new Promise((resolve, reject) => {
-    if (!session.id) {
-      reject();
+    if (!session || !session.userId) {
+      const err = new Error('Session expired');
+      err.status = 440;
+      reject(err);
     }
+    console.log('---------------SESSION', session);
+    resolve(session.userId);
   });
