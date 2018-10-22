@@ -12,6 +12,7 @@ import User from '../models/user';
 export const registerCtrl = ({ email, password }) =>
   new Promise((resolve, reject) => {
     User.findOne({ email })
+      .lean()
       .then(data => {
         if (data) {
           const err = new Error('User already exists');
@@ -51,35 +52,37 @@ export const loginCtrl = ({ email, password }) =>
       reject(err);
     }
 
-    User.findOne({ email }).exec((err, user) => {
-      err && reject(err);
-      if (!user) {
-        const err = new Error('User not found.');
-        err.status = 401;
-        reject(err);
-      }
-      bcryptCompare(password, user.password, (err, result) => {
+    User.findOne({ email })
+      .lean()
+      .exec((err, user) => {
         err && reject(err);
-        if (result) {
-          jwt.sign(
-            { email: email },
-            serverSettings.session.secret,
-            {
-              expiresIn: '1h'
-            },
-            (err, token) => {
-              err && reject(err);
-              if (token) {
-                resolve({ user, token });
-              }
-            }
-          );
+        if (!user) {
+          const err = new Error('User not found.');
+          err.status = 401;
+          reject(err);
         }
+        bcryptCompare(password, user.password, (err, result) => {
+          err && reject(err);
+          if (result) {
+            jwt.sign(
+              { email: email },
+              serverSettings.session.secret,
+              {
+                expiresIn: '1h'
+              },
+              (err, token) => {
+                err && reject(err);
+                if (token) {
+                  resolve({ user, token });
+                }
+              }
+            );
+          }
+        });
       });
-    });
   });
 
-// TODO: implement a secure way to logout with jwt (maybe destroys user's cookie)
+// TODO: implement a secure way to logout with jwt (maybe destroy user's cookie)
 export const logoutCtrl = session =>
   new Promise((resolve, reject) => {
     session.destroy(err => {
@@ -96,5 +99,7 @@ export const currentCtrl = session =>
       reject(err);
     }
     console.log('---------------SESSION', session);
+
+    // TODO: implement logic to take current user data
     resolve(session.userId);
   });

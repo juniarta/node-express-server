@@ -11,8 +11,14 @@ import Dashboard from 'Components/Dashboard';
 const authUser = () => {
   axios
     .get('http://localhost:9009/api/v1/user/current')
-    .then(data => console.log('-------------------------', data))
-    .catch(err => console.error(err));
+    .then(data => {
+      console.log('-------------------------', data);
+      return data;
+    })
+    .catch(err => {
+      console.error('----------ERROR', err);
+      return false;
+    });
 };
 
 const App = () => {
