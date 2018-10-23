@@ -1,11 +1,7 @@
-import { promisify } from 'util';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import { serverSettings } from '../../config';
-
-const bcryptCompare = promisify(bcrypt.compare);
-const bcryptHash = promisify(bcrypt.hash);
 
 import User from '../models/user';
 
@@ -25,7 +21,8 @@ export const registerCtrl = ({
           err.status = 400;
           reject(err);
         }
-        bcryptHash(password, 10)
+        bcrypt
+          .hash(password, 10)
           .then(password => {
             const user = new User({
               email,
@@ -68,24 +65,26 @@ export const loginCtrl = ({ email, password }) =>
         err.status = 401;
         reject(err);
       }
-      bcryptCompare(password, user.password, (err, result) => {
-        err && reject(err);
-        if (result) {
-          jwt.sign(
-            { email },
-            serverSettings.session.secret,
-            {
-              expiresIn: '1h'
-            },
-            (err, token) => {
-              err && reject(err);
-              if (token) {
-                resolve({ user, token });
+      bcrypt
+        .compare(password, user.password)
+        .then(res => {
+          if (res) {
+            jwt.sign(
+              { email },
+              serverSettings.session.secret,
+              {
+                expiresIn: '1h'
+              },
+              (err, token) => {
+                err && reject(err);
+                if (token) {
+                  resolve({ user, token });
+                }
               }
-            }
-          );
-        }
-      });
+            );
+          }
+        })
+        .catch(err => reject(err));
     });
   });
 
