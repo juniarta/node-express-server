@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -24,11 +25,7 @@ class Login extends Component {
       })
       .then(res => {
         console.log('-------------RES', res);
-        res.data &&
-          res.data.data.user &&
-          this.setState({
-            user: res.data.data.user
-          });
+        res.data && res.data.user && <Redirect to="/dashboard" />;
       })
       .catch(err => {
         console.error('ERR', err);

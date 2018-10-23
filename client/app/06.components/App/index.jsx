@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import axios from 'axios';
@@ -8,31 +8,46 @@ import Home from 'Components/Home';
 import Login from 'Components/Login';
 import Dashboard from 'Components/Dashboard';
 
-const authUser = () => {
-  axios
-    .get('http://localhost:9009/api/v1/user/current')
-    .then(data => {
-      console.log('-------------------------', data);
-      return data;
-    })
-    .catch(err => {
-      console.error('----------ERROR', err);
-      return false;
-    });
-};
+class App extends Component {
+  state = {
+    auth: false
+  };
 
-const App = () => {
-  return (
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/login" component={Login} />
-      <Route
-        path="/dashboard"
-        render={() => (authUser() ? <Dashboard /> : <Redirect to="/login" />)}
-      />
-      <Route component={NoMatch} />
-    </Switch>
-  );
-};
+  componentDidMount() {
+    axios
+      .get('http://localhost:9009/api/v1/user/current')
+      .then(() => {
+        this.setState({
+          auth: true
+        });
+      })
+      .catch(() => {
+        this.setState({
+          auth: false
+        });
+      });
+  }
+
+  render() {
+    return (
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route
+          path="/login"
+          render={() =>
+            !this.state.auth ? <Login /> : <Redirect to="/dashboard" />
+          }
+        />
+        <Route
+          path="/dashboard"
+          render={() =>
+            this.state.auth ? <Dashboard /> : <Redirect to="/login" />
+          }
+        />
+        <Route component={NoMatch} />
+      </Switch>
+    );
+  }
+}
 
 export default App;

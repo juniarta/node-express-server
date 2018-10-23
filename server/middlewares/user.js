@@ -10,9 +10,9 @@ import { serverSettings } from '../../config';
 export const registerMid = (req, res, next) => {
   registerCtrl(req.body)
     .then(data => {
-      res.status(200).json({
+      res.status(201).json({
         message: 'New user has been created',
-        data: data
+        data
       });
     })
     .catch(err => {
@@ -26,7 +26,7 @@ export const loginMid = (req, res, next) => {
       req.session.userId = data.user._id;
       res.status(200).json({
         message: 'Welcome to the JWT Auth',
-        data: data
+        data
       });
     })
     .catch(err => {
@@ -50,7 +50,7 @@ export const logoutMid = (req, res, next) => {
 };
 
 export const currentMid = (req, res, next) => {
-  currentCtrl(req.session)
+  currentCtrl(req)
     .then(data => {
       res.status(200).json({
         data

@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
+import passport from 'passport';
 
 import { serverSettings, logMessages, winstonSettings } from '../config';
 import { dbConnection, dbDisconnection } from './utils';
@@ -58,11 +59,13 @@ process.on('uncaughtException', er => {
   process.exit(1);
 });
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(sessionSettings);
 app.use(cors());
 app.options('*', cors());
 app.use(compression());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan('combined', { stream: winstonSettings.stream }));
