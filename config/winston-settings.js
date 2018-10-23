@@ -7,13 +7,13 @@ const logger = winston.createLogger({
     new winston.transports.File({
       level: 'error',
       filename: './logs/error.log',
-      maxSize: 5242880,
+      maxSize: 300,
       maxFiles: 3,
       json: true
     }),
     new winston.transports.File({
       filename: './logs/combined.log',
-      maxSize: 5242880,
+      maxSize: 300,
       maxFiles: 3,
       json: true
     }),
@@ -25,7 +25,11 @@ const logger = winston.createLogger({
     })
   ],
   exceptionHandlers: [
-    new winston.transports.File({ filename: './logs/exceptions.log' })
+    new winston.transports.File({
+      filename: './logs/exceptions.log',
+      maxSize: 300,
+      maxFiles: 3
+    })
   ],
   exitOnError: false
 });
