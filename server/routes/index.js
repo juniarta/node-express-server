@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import { authVerifyMid } from '../middlewares/auth';
-
 import userRouter from './user';
 import articleRouter from './article';
+import authRouter from './auth';
 
 const router = Router();
 
+router.use('/auth', authRouter);
 router.use('/user', userRouter);
-router.use('/article', authVerifyMid, articleRouter);
+router.use('/article', articleRouter);
 
 export default router;

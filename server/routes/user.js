@@ -1,16 +1,11 @@
 import { Router } from 'express';
-import {
-  registerMid,
-  loginMid,
-  logoutMid,
-  currentMid
-} from '../middlewares/user';
+import { registerMid, currentMid, allMid } from '../middlewares/user';
+import { authVerifyMid } from '../middlewares/auth';
 
 const router = Router();
 
 router.post('/register', registerMid);
-router.post('/login', loginMid);
-router.get('/logout', logoutMid);
 router.get('/current', currentMid);
+router.get('/all', authVerifyMid, allMid);
 
 export default router;

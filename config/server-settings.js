@@ -1,11 +1,7 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default {
   port: process.env.PORT || 9009,
-  session: {
-    secret: process.env.SESSION_SECRET
-  },
-  cookie: {
-    name: process.env.COOKIE_NAME
-  }
+  saltingRounds: 10
 };

@@ -7,7 +7,12 @@ import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
 
-import { serverSettings, logMessages, winstonSettings } from '../config';
+import {
+  serverSettings,
+  logMessages,
+  winstonSettings,
+  sessionSettings
+} from '../config';
 import { dbConnection, dbDisconnection } from './utils';
 import { authVerifyMid } from './middlewares/auth';
 
@@ -16,21 +21,6 @@ import routes from './routes';
 const app = express();
 const serverPort = serverSettings.port;
 const isProd = process.env.NODE_ENV === 'production';
-
-const sessionSettings = session({
-  secret: serverSettings.session.secret,
-  resave: true,
-  saveUninitialized: false,
-  cookie: {
-    name: serverSettings.cookie.name,
-    duration: 30 * 60 * 1000, // 30 minutes
-    activeDuration: 5 * 60 * 1000, // 5 minutes
-    maxAge: 3600000,
-    secure: true,
-    httpOnly: true,
-    ephemeral: true
-  }
-});
 
 const SERVER = app.listen(serverPort, () => {
   console.info(logMessages.server.connection, serverSettings.port);
@@ -58,19 +48,22 @@ process.on('uncaughtException', er => {
   process.exit(1);
 });
 
-app.use(sessionSettings);
 app.use(cors());
 app.options('*', cors());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(helmet());
+app.use(session(sessionSettings));
 app.use(morgan('combined', { stream: winstonSettings.stream }));
 
 // TODO: optimize and refactor
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use('/api/v1/', routes);
+app.use('/api/v1/', routes, (req, res, next) => {
+  res.json({ message: 'Hello api' });
+  next();
+});
 
 app.get('/', authVerifyMid, (req, res) => {
   res.json({

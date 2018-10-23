@@ -93,12 +93,10 @@ To check the Javascript / React [.js / .jsx] syntax I use [Eslint](http://eslint
 
 ## **Todo**
 
-- [x] Handle decentralized custom errors
-- [x] Manage signup, login and logout routes
-- [ ] Use `mongoose.pre` to bycript the password for user schema
+- [ ] Refactor user, article and auth routes (naming, etc...)
+- [x] Use `mongoose.pre` to bycript the password for user schema
 - [ ] Manage 2 differents token for sessions: jwt for api calls and server sessions for user
 - [ ] Refactor with best practices and performance
-- [x] Store server log
 - [ ] Migrate to typescript
 
 ---
