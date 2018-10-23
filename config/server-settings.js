@@ -6,6 +6,6 @@ export default {
     secret: process.env.SESSION_SECRET
   },
   cookie: {
-    name: 'test'
+    name: process.env.COOKIE_NAME
   }
 };
